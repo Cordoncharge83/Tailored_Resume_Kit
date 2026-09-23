@@ -1,0 +1,19 @@
+Example Company is hiring a Software Engineer for its Example City office.
+
+Responsibilities
+
+- Design, implement, test, and maintain backend services and REST APIs.
+- Collaborate with product, design, and engineering teammates.
+- Investigate defects and improve service reliability.
+- Contribute to technical documentation and code reviews.
+
+Required qualifications
+
+- Experience developing applications with Python or Java.
+- Familiarity with relational databases and Git.
+- Clear written and verbal communication.
+
+Preferred qualifications
+
+- Experience with FastAPI, PostgreSQL, React, or Docker.
+- Familiarity with distributed systems.

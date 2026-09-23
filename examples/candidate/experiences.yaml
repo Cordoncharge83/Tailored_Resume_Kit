@@ -1,0 +1,31 @@
+# Use an accurate experience_type: professional, internship, volunteering, or
+# leadership. Professional and internship entries normally use employer;
+# volunteering and leadership entries may use organization.
+experiences:
+  - id: experience_example_company_software_engineer_2024
+    experience_type: "professional"
+    employer: "Example Company"
+    role: "Software Engineer"
+    location: "Example City"
+    start_date: "2024-07"
+    end_date: "present"
+    technologies:
+      - "Python"
+      - "PostgreSQL"
+      - "REST APIs"
+    accomplishments:
+      - id: accomplishment_example_company_api_delivery
+        text: "Implemented and tested REST API features using Python and PostgreSQL."
+      - id: accomplishment_example_company_collaboration
+        text: "Collaborated with product, design, and engineering teammates throughout feature delivery."
+
+  - id: experience_example_community_lead_2023
+    experience_type: "leadership"
+    organization: "Example Community Group"
+    role: "Volunteer Team Lead"
+    location: "Example City"
+    start_date: "2023-01"
+    end_date: "2023-12"
+    accomplishments:
+      - id: accomplishment_example_community_coordination
+        text: "Coordinated volunteers and event logistics for recurring community workshops."

@@ -1,0 +1,32 @@
+profile:
+  id: profile_example_candidate
+  name: "Candidate Name"
+  headline: "Software Engineer"
+  summary: >-
+    Software engineer with experience building reliable applications and
+    collaborating across the software delivery lifecycle.
+  email: "candidate@example.com"
+  phone: "+00 000 000 000"
+  links:
+    - id: link_example_portfolio
+      label: "Portfolio"
+      url: "https://example.com/portfolio"
+    - id: link_example_linkedin
+      label: "LinkedIn"
+      url: "https://example.com/linkedin"
+    - id: link_example_github
+      label: "GitHub"
+      url: "https://example.com/github"
+
+languages:
+  - id: language_example_english
+    name: "English"
+    proficiency: "Fluent"
+    supporting_information:
+      - id: language_assessment_example_english
+        type: "language assessment"
+        name: "Example assessment"
+        score: "Example score"
+        historical: true
+
+certifications: []

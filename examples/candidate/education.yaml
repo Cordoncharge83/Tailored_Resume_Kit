@@ -1,0 +1,11 @@
+education:
+  - id: education_example_university_computer_science_2020_2024
+    institution: "Example University"
+    degree: "Bachelor of Science"
+    field_of_study: "Computer Science"
+    location: "Example City"
+    start_date: "2020-09"
+    end_date: "2024-06"
+    accomplishments:
+      - id: accomplishment_example_education_coursework
+        text: "Completed coursework in software engineering, databases, distributed systems, and algorithms."

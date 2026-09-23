@@ -1,0 +1,35 @@
+skill_groups:
+  - id: skill_group_example_languages
+    name: "Languages"
+    skills:
+      - id: skill_example_python
+        name: "Python"
+        evidence_ids:
+          - accomplishment_example_company_api_delivery
+      - id: skill_example_java
+        name: "Java"
+        evidence_ids:
+          - accomplishment_example_distributed_service
+      - id: skill_example_typescript
+        name: "TypeScript"
+        evidence_ids:
+          - accomplishment_example_task_manager_interface
+
+  - id: skill_group_example_technologies
+    name: "Technologies"
+    skills:
+      - id: skill_example_postgresql
+        name: "PostgreSQL"
+        evidence_ids:
+          - accomplishment_example_company_api_delivery
+      - id: skill_example_react
+        name: "React"
+        evidence_ids:
+          - accomplishment_example_task_manager_interface
+      - id: skill_example_fastapi
+        name: "FastAPI"
+        evidence_ids:
+          - accomplishment_example_task_manager_api
+      - id: skill_example_git
+        name: "Git"
+        evidence_ids: []

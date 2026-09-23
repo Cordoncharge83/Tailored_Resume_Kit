@@ -1,0 +1,34 @@
+projects:
+  - id: project_example_task_manager
+    name: "Example Task Manager"
+    description: "Collaborative task-tracking application"
+    project_type: "personal"
+    url: "https://example.com/task-manager"
+    repository_url: "https://example.com/source/task-manager"
+    technologies:
+      - "TypeScript"
+      - "React"
+      - "FastAPI"
+    accomplishments:
+      - id: accomplishment_example_task_manager_interface
+        text: "Built a responsive task-management interface with TypeScript and React."
+      - id: accomplishment_example_task_manager_api
+        text: "Implemented a FastAPI backend for creating, assigning, and tracking tasks."
+
+  - id: project_example_distributed_systems_lab
+    name: "Example Distributed Systems Lab"
+    description: "Fault-tolerant service prototype"
+    project_type: "academic"
+    team_size: "4 members"
+    role_focus:
+      - "Service implementation"
+      - "Automated testing"
+    other_team_contributions_included:
+      - "System design"
+      - "Technical documentation"
+    technologies:
+      - "Java"
+      - "Docker"
+    accomplishments:
+      - id: accomplishment_example_distributed_service
+        text: "Implemented and tested a Java service as part of a four-person academic project."
