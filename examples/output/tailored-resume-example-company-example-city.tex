@@ -1,0 +1,79 @@
+\documentclass[a4paper,10pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[english]{babel}
+\usepackage{geometry}
+\usepackage{enumitem}
+\usepackage{xcolor}
+\definecolor{linkblue}{HTML}{1A5FB4}
+
+\usepackage[
+    colorlinks=true,
+    urlcolor=linkblue,
+    linkcolor=linkblue
+]{hyperref}
+\usepackage{titlesec}
+\usepackage{parskip}
+\usepackage{setspace}
+
+\geometry{margin=0.56in}
+
+\titleformat{\section}{\large\bfseries}{}{0em}{}[\titlerule]
+
+\begin{document}
+\singlespacing
+
+\begin{center}
+  {\Huge \textbf{Candidate Name}} \\[0.10cm]
+  \href{https://example.com/portfolio}{Portfolio} $\vert$
+  \href{https://example.com/linkedin}{LinkedIn} $\vert$
+  \href{https://example.com/github}{GitHub} $\vert$
+  candidate@example.com $\vert$ +00 000 000 000
+\end{center}
+
+\begin{small}
+\section*{Profile}
+
+Software engineer who implements and tests REST API features with Python and
+PostgreSQL and collaborates with product, design, and engineering teammates
+throughout feature delivery.
+
+\section*{Experience}
+
+\textbf{Example Company - \textcolor{gray}{Software Engineer}} \hfill Jul 2024--Present
+\begin{itemize}[leftmargin=*]
+\item Implemented and tested REST API features using Python and PostgreSQL.
+\item Collaborated with product, design, and engineering teammates throughout feature delivery.
+\end{itemize}
+
+\section*{Projects}
+
+\textbf{Example Task Manager - Collaborative Task-Tracking Application -
+\textcolor{gray}{Personal Project - \href{https://example.com/task-manager}{Link}}}
+\begin{itemize}[leftmargin=*]
+\item Implemented a FastAPI backend for creating, assigning, and tracking tasks.
+\item Built a responsive task-management interface with TypeScript and React.
+\end{itemize}
+
+\textbf{Example Distributed Systems Lab - Fault-Tolerant Service Prototype -
+\textcolor{gray}{Academic Project}}
+\begin{itemize}[leftmargin=*]
+\item Implemented and tested a Java service as part of a four-person academic project.
+\end{itemize}
+
+\section*{Education}
+\textbf{Example University -- Example City}
+\emph{Bachelor of Science -- Computer Science} \hfill Sep 2020--Jun 2024
+\begin{itemize}[leftmargin=*]
+\item Completed coursework in software engineering, databases, distributed systems, and algorithms.
+\end{itemize}
+
+\section*{Skills}
+
+\textbf{Languages}: Python, Java, TypeScript \\
+\textbf{Technologies}: PostgreSQL, FastAPI, React, Git \\
+\textbf{Languages Spoken}: English (Fluent)
+
+\end{small}
+
+\end{document}

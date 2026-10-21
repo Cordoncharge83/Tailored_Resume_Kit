@@ -49,6 +49,13 @@ Validation warnings do not block generation. Never resolve a warning by
 adding a skill or other candidate fact yourself; copy each warning into the
 tailoring report's warnings.
 
+Then record the canonical template's fingerprint as the report's
+`canonical_template.sha256_before`:
+
+```text
+python scripts/check_tailoring_output.py template-hash
+```
+
 ## Candidate facts and truthfulness
 
 - Treat the YAML files under `candidate/` as the only authorized source of
@@ -204,19 +211,31 @@ The report must include:
 - warnings and ambiguities;
 - confirmation that the canonical template was not modified.
 
+Write the report in the version 1 format described in
+`schemas/tailoring-report.md`. `examples/output/` contains a complete example.
+
 ## Final checks
 
-Before finishing:
+Before finishing, run `template-hash` again, record the result as
+`canonical_template.sha256_after`, and then run:
 
-- confirm the candidate validator passed before generation;
-- confirm `templates/resume.tex` was not modified;
-- confirm both required output files exist and share the same suffix;
-- confirm all cited candidate IDs exist;
-- confirm no candidate claim came solely from the template or job description;
-- check for unresolved placeholders;
-- check LaTeX environments and braces as far as possible statically;
-- check and escape LaTeX-sensitive characters;
-- report unsupported requirements honestly.
+```text
+python scripts/check_tailoring_output.py check output/tailoring-report-<company>-<location>.json
+```
+
+The checker confirms that the candidate data validates, the canonical template
+is unchanged, both output files exist with the same suffix, every cited ID
+exists and fits its field, every `\item` is recorded in the report, and that
+braces, environments, placeholders, and LaTeX-sensitive characters are clean.
+If it fails, fix only the generated outputs and run it again. Never edit
+candidate data or the canonical template to make it pass. Pass any checker
+warnings on to the user.
+
+The checker cannot judge meaning, so also confirm that:
+
+- no candidate claim came solely from the template or job description;
+- every bullet preserves the meaning and scope of its cited records;
+- unsupported requirements are reported honestly.
 
 Do not generate a PDF or attempt local LaTeX compilation. Do not claim that
 the resume compiles, fits on one page, or improves an ATS score. If the user
@@ -227,6 +246,7 @@ For public-release or contribution tasks, also run:
 
 ```text
 python scripts/validate_candidate_data.py examples/candidate
+python scripts/check_tailoring_output.py check examples/output/tailoring-report-example-company-example-city.json --candidate examples/candidate --template templates/resume.example.tex
 python scripts/check_public_tree.py
 python -m unittest discover -s tests -v
 ```

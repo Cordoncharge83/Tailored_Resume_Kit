@@ -33,6 +33,13 @@ jobs:
       - name: Validate fictional candidate data
         run: python scripts/validate_candidate_data.py examples/candidate
 
+      - name: Check example tailoring outputs
+        run: >-
+          python scripts/check_tailoring_output.py check
+          examples/output/tailoring-report-example-company-example-city.json
+          --candidate examples/candidate
+          --template templates/resume.example.tex
+
       - name: Check publishable paths and content
         run: python scripts/check_public_tree.py
 

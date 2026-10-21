@@ -60,6 +60,7 @@ def _is_example_identity_file(relative_path: str) -> bool:
     return (
         relative_path.startswith("examples/candidate/")
         or relative_path.startswith("examples/inputs/")
+        or relative_path.startswith("examples/output/")
         or relative_path == "templates/resume.example.tex"
     )
 

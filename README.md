@@ -134,6 +134,9 @@ The JSON report records:
 - warnings and ambiguities;
 - confirmation that the canonical template was not modified.
 
+The report follows the format in `schemas/tailoring-report.md`. See
+`examples/output/` for a complete example built from the fictional data.
+
 ## Repository layout
 
 ```text
@@ -142,7 +145,9 @@ CLAUDE.md                         Claude Code import of AGENTS.md
 .github/workflows/validate.yml    Public-data validation in CI
 examples/candidate/               Fictional, publishable YAML records
 examples/inputs/                  Fictional, publishable job description
+examples/output/                  Fictional example resume and tailoring report
 schemas/README.md                 Candidate-data validation contract
+schemas/tailoring-report.md       Tailoring-report format and output checks
 scripts/                          Deterministic validation and privacy checks
 templates/resume.example.tex      Fictional, publishable LaTeX template
 tests/                            Safeguard regression tests
@@ -177,6 +182,14 @@ Validate a private working candidate without publishing it:
 
 ```text
 python scripts/validate_candidate_data.py candidate
+```
+
+Check a generated resume and report against the candidate data and the
+canonical template, and fingerprint the template before and after generation:
+
+```text
+python scripts/check_tailoring_output.py template-hash
+python scripts/check_tailoring_output.py check output/tailoring-report-example-company-example-city.json
 ```
 
 Check that private paths remain ignored and scan publishable text for

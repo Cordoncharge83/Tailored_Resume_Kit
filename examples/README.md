@@ -24,3 +24,10 @@ Validate the fictional starter records with:
 ```text
 python scripts/validate_candidate_data.py examples/candidate
 ```
+
+`examples/output/` shows the resume and tailoring report the workflow produces
+for the example job description. Check them with:
+
+```text
+python scripts/check_tailoring_output.py check examples/output/tailoring-report-example-company-example-city.json --candidate examples/candidate --template templates/resume.example.tex
+```

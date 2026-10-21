@@ -1,0 +1,188 @@
+{
+  "report_version": 1,
+  "job_description_path": "examples/inputs/example-company-example-city.txt",
+  "job": {
+    "company": "Example Company",
+    "location": "Example City",
+    "role": "Software Engineer",
+    "seniority": null
+  },
+  "canonical_template": {
+    "path": "templates/resume.example.tex",
+    "sha256_before": "8f0097134a1788b105c97d26d53eb9eb75acf8c1361a341de040496e11f5b346",
+    "sha256_after": "8f0097134a1788b105c97d26d53eb9eb75acf8c1361a341de040496e11f5b346"
+  },
+  "requirements": [
+    {
+      "text": "Design, implement, test, and maintain backend services and REST APIs.",
+      "category": "responsibility",
+      "status": "partial",
+      "evidence_ids": [
+        "accomplishment_example_company_api_delivery",
+        "accomplishment_example_task_manager_api",
+        "accomplishment_example_distributed_service"
+      ],
+      "note": "Implementation and testing are recorded; service design and long-term maintenance are not."
+    },
+    {
+      "text": "Collaborate with product, design, and engineering teammates.",
+      "category": "responsibility",
+      "status": "matched",
+      "evidence_ids": ["accomplishment_example_company_collaboration"]
+    },
+    {
+      "text": "Investigate defects and improve service reliability.",
+      "category": "responsibility",
+      "status": "unmatched",
+      "evidence_ids": []
+    },
+    {
+      "text": "Contribute to technical documentation and code reviews.",
+      "category": "responsibility",
+      "status": "unmatched",
+      "evidence_ids": [],
+      "note": "Technical documentation on project_example_distributed_systems_lab is listed under other_team_contributions_included, so it is not claimed. No code reviews are recorded."
+    },
+    {
+      "text": "Experience developing applications with Python or Java.",
+      "category": "required",
+      "status": "matched",
+      "evidence_ids": [
+        "accomplishment_example_company_api_delivery",
+        "accomplishment_example_distributed_service"
+      ]
+    },
+    {
+      "text": "Familiarity with relational databases and Git.",
+      "category": "required",
+      "status": "partial",
+      "evidence_ids": ["accomplishment_example_company_api_delivery"],
+      "note": "PostgreSQL use is recorded. Git is listed in skills.yaml without accomplishment evidence."
+    },
+    {
+      "text": "Clear written and verbal communication.",
+      "category": "required",
+      "status": "unmatched",
+      "evidence_ids": [],
+      "note": "Cross-functional collaboration is recorded, but no record directly demonstrates written or verbal communication."
+    },
+    {
+      "text": "Experience with FastAPI, PostgreSQL, React, or Docker.",
+      "category": "preferred",
+      "status": "partial",
+      "evidence_ids": [
+        "accomplishment_example_task_manager_api",
+        "accomplishment_example_company_api_delivery",
+        "accomplishment_example_task_manager_interface"
+      ],
+      "note": "Docker appears only in the technologies of a team academic project, with no accomplishment showing the candidate used it."
+    },
+    {
+      "text": "Familiarity with distributed systems.",
+      "category": "preferred",
+      "status": "partial",
+      "evidence_ids": [
+        "accomplishment_example_education_coursework",
+        "accomplishment_example_distributed_service"
+      ],
+      "note": "Supported by coursework and an academic distributed-systems project, not professional work."
+    }
+  ],
+  "keywords": [
+    "backend services",
+    "REST APIs",
+    "Python",
+    "Java",
+    "relational databases",
+    "PostgreSQL",
+    "Git",
+    "FastAPI",
+    "React",
+    "Docker",
+    "distributed systems",
+    "service reliability",
+    "technical documentation",
+    "code reviews"
+  ],
+  "selected_records": [
+    {
+      "id": "experience_example_company_software_engineer_2024",
+      "reason": "Current professional role with Python, PostgreSQL, and REST API work that matches the core requirements."
+    },
+    {
+      "id": "project_example_task_manager",
+      "reason": "Personal project with a FastAPI backend and React interface, both preferred technologies."
+    },
+    {
+      "id": "project_example_distributed_systems_lab",
+      "reason": "Academic project supporting the Java and distributed-systems qualifications."
+    },
+    {
+      "id": "education_example_university_computer_science_2020_2024",
+      "reason": "Degree is fixed content; the coursework bullet supports databases and distributed systems."
+    }
+  ],
+  "omitted_records": [
+    {
+      "id": "experience_example_community_lead_2023",
+      "reason": "Volunteer coordination is less relevant to this backend role; omitted to make room for the second project."
+    }
+  ],
+  "profile": {
+    "latex": "Software engineer who implements and tests REST API features with Python and PostgreSQL and collaborates with product, design, and engineering teammates throughout feature delivery.",
+    "source_ids": [
+      "profile_example_candidate",
+      "accomplishment_example_company_api_delivery",
+      "accomplishment_example_company_collaboration"
+    ]
+  },
+  "bullets": [
+    {
+      "record_id": "experience_example_company_software_engineer_2024",
+      "latex": "Implemented and tested REST API features using Python and PostgreSQL.",
+      "source_ids": ["accomplishment_example_company_api_delivery"]
+    },
+    {
+      "record_id": "experience_example_company_software_engineer_2024",
+      "latex": "Collaborated with product, design, and engineering teammates throughout feature delivery.",
+      "source_ids": ["accomplishment_example_company_collaboration"]
+    },
+    {
+      "record_id": "project_example_task_manager",
+      "latex": "Implemented a FastAPI backend for creating, assigning, and tracking tasks.",
+      "source_ids": ["accomplishment_example_task_manager_api"]
+    },
+    {
+      "record_id": "project_example_task_manager",
+      "latex": "Built a responsive task-management interface with TypeScript and React.",
+      "source_ids": ["accomplishment_example_task_manager_interface"]
+    },
+    {
+      "record_id": "project_example_distributed_systems_lab",
+      "latex": "Implemented and tested a Java service as part of a four-person academic project.",
+      "source_ids": ["accomplishment_example_distributed_service"]
+    },
+    {
+      "record_id": "education_example_university_computer_science_2020_2024",
+      "latex": "Completed coursework in software engineering, databases, distributed systems, and algorithms.",
+      "source_ids": ["accomplishment_example_education_coursework"]
+    }
+  ],
+  "selected_skills": [
+    "skill_example_python",
+    "skill_example_java",
+    "skill_example_typescript",
+    "skill_example_postgresql",
+    "skill_example_fastapi",
+    "skill_example_react",
+    "skill_example_git"
+  ],
+  "unsupported_skills": ["skill_example_git"],
+  "warnings": [
+    "technology 'Docker' is listed by project_example_distributed_systems_lab but not in skills.yaml; add it there only if the candidate can claim it",
+    "technology 'REST APIs' is listed by experience_example_company_software_engineer_2024 but not in skills.yaml; add it there only if the candidate can claim it"
+  ],
+  "ambiguities": [
+    "The job description does not state a seniority level."
+  ]
+}

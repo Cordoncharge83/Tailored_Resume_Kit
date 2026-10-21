@@ -38,6 +38,7 @@ change:
 ```text
 python -m pip install -r requirements.txt
 python scripts/validate_candidate_data.py examples/candidate
+python scripts/check_tailoring_output.py check examples/output/tailoring-report-example-company-example-city.json --candidate examples/candidate --template templates/resume.example.tex
 python scripts/check_public_tree.py
 python -m unittest discover -s tests -v
 ```
