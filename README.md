@@ -27,13 +27,14 @@ tailoring report with the candidate IDs that support it.
 
 - It does not provide a web application, hosted service, or SaaS product.
 - It does not call an LLM through a custom API integration.
-- It does not automatically compile PDFs.
-- It does not automatically verify visual layout or one-page fit.
+- It does not compile PDFs unless you ask; local compilation is optional.
+- It does not verify visual layout; a local compile only reports errors,
+  margin overflows, and the page count.
 - It does not calculate or promise ATS-score improvements.
 - It cannot support a requirement that is absent from the candidate records.
 
-Generated LaTeX is compiled and visually reviewed manually, such as through
-Overleaf.
+Generated LaTeX is visually reviewed manually, usually by compiling it in
+Overleaf. See Optional PDF compilation for checking it locally first.
 
 ## Requirements
 
@@ -41,6 +42,7 @@ Overleaf.
 - Python 3.10 or newer.
 - A text editor for maintaining the private YAML records.
 - A LaTeX environment such as Overleaf for manual compilation.
+- Internet access the first time you use the optional local PDF compiler.
 
 Install the pinned validation dependency with:
 
@@ -81,7 +83,8 @@ Then:
    `<company>-<location>.txt` naming convention.
 4. From the repository root, ask Codex or Claude Code to tailor the resume to
    that specific input file.
-5. Review both generated files, then compile the `.tex` file manually.
+5. Review both generated files. Optionally let the agent compile a local PDF,
+   then compile the `.tex` file in Overleaf for the final layout check.
 
 The initialized working paths are ignored by Git. Do not force-add them.
 
@@ -148,14 +151,15 @@ examples/inputs/                  Fictional, publishable job description
 examples/output/                  Fictional example resume and tailoring report
 schemas/README.md                 Candidate-data validation contract
 schemas/tailoring-report.md       Tailoring-report format and output checks
-scripts/                          Deterministic validation and privacy checks
+scripts/                          Validation, privacy checks, optional PDF compiler
 templates/resume.example.tex      Fictional, publishable LaTeX template
 tests/                            Safeguard regression tests
 candidate/                        Private candidate records; ignored
 inputs/                           Private job descriptions; ignored
 templates/resume.tex              Private canonical template; ignored
-output/                           Generated resumes and reports; ignored
+output/                           Generated resumes, reports, and PDFs; ignored
 references/                       Private source documents; ignored
+.tools/                           Downloaded Tectonic and LaTeX packages; ignored
 ```
 
 ## Data model and traceability
@@ -229,11 +233,36 @@ Git ignore rules do not remove secrets or personal data from existing commit
 history. If private data was previously committed, remove it from history
 before publishing.
 
+## Optional PDF compilation
+
+After writing a resume, the agent asks whether you want it compiled locally.
+You can also run the compiler yourself:
+
+```text
+python scripts/compile_resume.py output/tailored-resume-example-company-example-city.tex
+```
+
+No LaTeX installation is needed. The first run downloads Tectonic, a
+single-file LaTeX compiler, into the ignored `.tools/` directory and verifies
+its SHA-256 checksum before running it. Tectonic then downloads the LaTeX
+packages the resume uses and caches them in `.tools/`; only package names are
+requested, and the resume never leaves your computer. Delete `.tools/` to
+remove everything it downloaded.
+
+The script writes the PDF and log next to the `.tex` file, reports LaTeX
+errors with line numbers, and warns about text running into the margins or a
+PDF longer than one page (`--max-pages` changes the limit). It runs Tectonic
+with `--untrusted`, which disables LaTeX features that can run commands. Use
+`--tectonic PATH` to use an existing Tectonic installation instead.
+
+Tectonic uses the XeTeX engine, while Overleaf defaults to pdfLaTeX, so line
+breaks can differ slightly. Overleaf remains the final check of layout.
+
 ## Current limitations
 
 Generation is performed interactively by the selected coding agent. The
-repository does not include PDF compilation, visual page-fit checks, or
-automated ATS scoring.
+repository does not include visual layout checks or automated ATS scoring.
+Local PDF compilation is optional and needs internet access on first use.
 
 ## Contributing
 

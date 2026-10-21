@@ -8,6 +8,9 @@
 # Start from templates/resume.example.tex; only the example is safe to publish.
 /templates/resume.tex
 
+# Tools downloaded on demand, such as the optional Tectonic PDF compiler.
+/.tools/
+
 # LaTeX build artifacts
 *.aux
 *.fdb_latexmk

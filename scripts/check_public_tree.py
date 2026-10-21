@@ -10,7 +10,7 @@ from pathlib import Path
 from urllib.parse import urlparse
 
 
-FORBIDDEN_PREFIXES = ("candidate/", "inputs/", "output/", "references/")
+FORBIDDEN_PREFIXES = ("candidate/", "inputs/", "output/", "references/", ".tools/")
 FORBIDDEN_EXACT_PATHS = {"templates/resume.tex"}
 REQUIRED_IGNORE_PROBES = (
     "candidate/profile.yaml",
@@ -18,6 +18,7 @@ REQUIRED_IGNORE_PROBES = (
     "output/tailored-resume-example-company-remote.tex",
     "references/example-resume.pdf",
     "templates/resume.tex",
+    ".tools/tectonic-0.17.0/tectonic",
 )
 SECRET_PATTERNS = {
     "private key": re.compile(

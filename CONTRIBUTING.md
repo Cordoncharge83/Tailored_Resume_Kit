@@ -18,8 +18,10 @@ Thank you for helping improve Tailored Resume Kit.
   Claude-specific instruction becomes necessary.
 - Keep candidate facts separate from template prose.
 - Preserve stable IDs and evidence references in example data.
-- Do not add claims of automated PDF compilation, page-fit validation, or ATS
-  improvement unless those capabilities are implemented and verified.
+- Keep PDF compilation optional and local, and never commit downloaded tools
+  or generated PDFs.
+- Do not add claims of visual layout validation or ATS improvement unless
+  those capabilities are implemented and verified.
 
 ## Scope
 

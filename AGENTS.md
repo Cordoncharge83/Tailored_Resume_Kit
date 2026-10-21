@@ -111,7 +111,8 @@ python scripts/check_tailoring_output.py template-hash
 - Prefer omitting lower-relevance content over shrinking fonts, margins, or
   spacing.
 - Escape LaTeX-sensitive characters correctly.
-- The user compiles and reviews generated LaTeX manually, such as in Overleaf.
+- The user reviews generated LaTeX, usually by compiling it in Overleaf.
+  Optional local compilation is described under Optional PDF compilation.
 
 ## Fixed factual content
 
@@ -237,10 +238,38 @@ The checker cannot judge meaning, so also confirm that:
 - every bullet preserves the meaning and scope of its cited records;
 - unsupported requirements are reported honestly.
 
-Do not generate a PDF or attempt local LaTeX compilation. Do not claim that
-the resume compiles, fits on one page, or improves an ATS score. If the user
-provides Overleaf compilation or layout feedback, revise only the generated
-LaTeX unless they explicitly request a canonical-template change.
+If the user provides Overleaf compilation or layout feedback, revise only the
+generated LaTeX unless they explicitly request a canonical-template change.
+
+## Optional PDF compilation
+
+Never compile a PDF unprompted. After the final checks pass, ask the user
+whether they want the resume compiled locally, and run the compiler only if
+they say yes. When asking for the first time, explain that the first compile
+downloads Tectonic (about 15 MB, from GitHub, checksum-verified) and the LaTeX
+packages the resume uses, that only package names are requested, and that the
+resume itself never leaves their computer.
+
+If they agree, run:
+
+```text
+python scripts/compile_resume.py output/tailored-resume-<company>-<location>.tex
+```
+
+- The PDF and log are written next to the `.tex` file in the ignored
+  `output/` directory.
+- If compilation fails, report the errors, fix only the generated `.tex`, run
+  the output checker again, and ask before compiling again.
+- If the PDF is longer than one page, tell the user and propose omitting
+  lower-relevance content; never shrink fonts, margins, or spacing to fit.
+  Report margin overflow warnings the same way.
+- After a successful compile, report exactly what happened, for example
+  "compiled with Tectonic without errors, 1 page". Also say that Overleaf's
+  default pdfLaTeX engine can break lines differently from Tectonic's XeTeX
+  engine, so Overleaf remains the final check of layout.
+
+Without a successful local compile, do not claim that the resume compiles or
+fits on one page. Never claim that it improves an ATS score.
 
 For public-release or contribution tasks, also run:
 
