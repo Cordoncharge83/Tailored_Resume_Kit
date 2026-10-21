@@ -23,7 +23,10 @@ Duplicate YAML mapping keys and unexpected candidate YAML files are rejected.
 - IDs start with a lowercase letter and contain only lowercase letters,
   digits, and underscores.
 - Every `evidence_ids` value references an existing ID in the same candidate
-  directory.
+  directory, and that ID belongs to an accomplishment, an experience, a
+  project, an education entry, or a certification. Skills, skill groups,
+  profile links, languages, and the profile itself cannot be cited as
+  evidence.
 - Skill names are unique across all skill groups, ignoring case and surrounding
   whitespace.
 

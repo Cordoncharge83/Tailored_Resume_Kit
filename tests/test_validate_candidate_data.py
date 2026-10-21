@@ -72,6 +72,39 @@ class CandidateValidationTests(unittest.TestCase):
         result = validate_candidate_directory(self.candidate_dir)
         self.assertTrue(result.is_valid, result.errors)
 
+    def test_evidence_may_reference_a_certification(self) -> None:
+        profile = self._load("profile.yaml")
+        profile["certifications"] = [
+            {"id": "certification_example_python", "name": "Example Python Certificate"}
+        ]
+        self._save("profile.yaml", profile)
+        skills = self._load("skills.yaml")
+        skills["skill_groups"][0]["skills"][0]["evidence_ids"] = [
+            "certification_example_python"
+        ]
+        self._save("skills.yaml", skills)
+        result = validate_candidate_directory(self.candidate_dir)
+        self.assertTrue(result.is_valid, result.errors)
+
+    def test_evidence_must_not_reference_non_evidence_ids(self) -> None:
+        for reference in (
+            "skill_example_python",
+            "skill_example_java",
+            "skill_group_example_languages",
+            "link_example_github",
+            "profile_example_candidate",
+            "language_example_english",
+        ):
+            with self.subTest(reference=reference):
+                skills = self._load("skills.yaml")
+                skills["skill_groups"][0]["skills"][0]["evidence_ids"] = [reference]
+                self._save("skills.yaml", skills)
+                result = validate_candidate_directory(self.candidate_dir)
+                self.assertTrue(
+                    any("must reference an accomplishment" in error for error in result.errors),
+                    result.errors,
+                )
+
     def test_invalid_experience_type_is_rejected(self) -> None:
         experiences = self._load("experiences.yaml")
         experiences["experiences"][0]["experience_type"] = "contract"

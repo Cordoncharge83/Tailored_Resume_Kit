@@ -157,7 +157,8 @@ references/                       Private source documents; ignored
 
 Candidate YAML is the sole source of candidate facts. Records and atomic
 accomplishments use stable, globally unique IDs. Skills may list
-`evidence_ids` that point to accomplishments demonstrating those skills.
+`evidence_ids` that point to accomplishments demonstrating those skills, or to
+the experience, project, education, or certification records behind them.
 
 The agent may reword or combine compatible facts from the same record, but it
 must never create unsupported technologies, metrics, responsibilities,
@@ -193,7 +194,7 @@ python -m unittest discover -s tests -v
 
 The validator rejects unsafe YAML construction, duplicate mapping keys,
 missing required files or fields, invalid dates, duplicate or malformed IDs,
-unresolved evidence references, duplicate skill names, and unsupported
+unresolved or non-evidence references, duplicate skill names, and unsupported
 experience or project types. It also warns, without failing, when a record
 lists a technology that `skills.yaml` does not, so you can decide whether to
 claim it as a skill. GitHub Actions runs the same public checks on

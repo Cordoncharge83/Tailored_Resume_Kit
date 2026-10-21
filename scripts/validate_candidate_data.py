@@ -467,6 +467,37 @@ def _collect_identifiers(
             )
 
 
+def _evidence_target_ids(documents: dict[str, Any]) -> set[str]:
+    """Return IDs that may be cited as evidence: records and accomplishments."""
+    targets: set[str] = set()
+
+    def add_records(records: Any, *, with_accomplishments: bool) -> None:
+        if not isinstance(records, list):
+            return
+        for record in records:
+            if not isinstance(record, dict):
+                continue
+            if isinstance(record.get("id"), str):
+                targets.add(record["id"])
+            if with_accomplishments and isinstance(record.get("accomplishments"), list):
+                for item in record["accomplishments"]:
+                    if isinstance(item, dict) and isinstance(item.get("id"), str):
+                        targets.add(item["id"])
+
+    for filename, root_name in (
+        ("education.yaml", "education"),
+        ("experiences.yaml", "experiences"),
+        ("projects.yaml", "projects"),
+    ):
+        document = documents.get(filename)
+        if isinstance(document, dict):
+            add_records(document.get(root_name), with_accomplishments=True)
+    profile = documents.get("profile.yaml")
+    if isinstance(profile, dict):
+        add_records(profile.get("certifications"), with_accomplishments=False)
+    return targets
+
+
 def _technology_skill_warnings(documents: dict[str, Any]) -> list[str]:
     """Warn about record technologies that skills.yaml does not list."""
     skills = documents.get("skills.yaml")
@@ -542,9 +573,16 @@ def validate_candidate_directory(directory: Path | str) -> ValidationResult:
         VALIDATORS[filename](document, filename, state)
         _collect_identifiers(document, f"{filename}$", state)
 
+    evidence_targets = _evidence_target_ids(documents)
     for reference, location in state.evidence_references:
         if reference not in state.ids:
             state.error(location, "references an ID that does not exist")
+        elif reference not in evidence_targets:
+            state.error(
+                location,
+                "must reference an accomplishment, experience, project, education, "
+                "or certification ID",
+            )
 
     return ValidationResult(
         directory=candidate_dir,
