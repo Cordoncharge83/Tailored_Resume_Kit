@@ -45,6 +45,10 @@ modify candidate data only when the user explicitly asks for that change.
 Never silently repair IDs, evidence references, types, dates, or required
 fields.
 
+Validation warnings do not block generation. Never resolve a warning by
+adding a skill or other candidate fact yourself; copy each warning into the
+tailoring report's warnings.
+
 ## Candidate facts and truthfulness
 
 - Treat the YAML files under `candidate/` as the only authorized source of
@@ -61,6 +65,21 @@ fields.
   academic project, personal project, internship, prototype, volunteering,
   leadership experience, or historical deployment into another category.
 - Preserve the meaning and scope of every supporting record when rewriting.
+
+## Team contributions and historical facts
+
+- For team records, `team_size` describes the team, `role_focus` describes the
+  candidate's own contribution, and `other_team_contributions_included` lists
+  work done by other team members.
+- Never present an item from `other_team_contributions_included` as the
+  candidate's own work, in bullets, the profile, or skills. Do not use it to
+  satisfy a job requirement; report that requirement as unmatched instead.
+- A team record's `technologies` describe the project as a whole. Attribute a
+  technology to the candidate personally only when a cited accomplishment
+  supports it.
+- Treat `historical: true` as a past fact. Do not present it as current,
+  ongoing, still deployed, or still valid, and do not remove the context that
+  makes it historical.
 
 ## Stable IDs and evidence
 
@@ -150,7 +169,10 @@ Before writing the resume:
 - Keep education identity and dates fixed; select optional bullets for
   relevance.
 - Retain or omit Leadership according to relevance and available space.
-- Include only recorded candidate skills and prioritize relevant ones.
+- Include only recorded candidate skills and prioritize relevant ones. The
+  Skills section may list only entries from `candidate/skills.yaml`; a
+  technology that appears only in a record's `technologies` list does not add
+  a Skills entry. Report it as an unmatched requirement or warning instead.
 
 ## Required outputs
 

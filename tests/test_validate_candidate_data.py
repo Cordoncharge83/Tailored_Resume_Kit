@@ -93,6 +93,40 @@ class CandidateValidationTests(unittest.TestCase):
         result = validate_candidate_directory(self.candidate_dir)
         self.assertTrue(any("description" in error for error in result.errors))
 
+    def test_education_may_have_no_accomplishments(self) -> None:
+        education = self._load("education.yaml")
+        education["education"][0]["accomplishments"] = []
+        self._save("education.yaml", education)
+        result = validate_candidate_directory(self.candidate_dir)
+        self.assertTrue(result.is_valid, result.errors)
+
+    def test_experience_requires_an_accomplishment(self) -> None:
+        experiences = self._load("experiences.yaml")
+        experiences["experiences"][0]["accomplishments"] = []
+        self._save("experiences.yaml", experiences)
+        result = validate_candidate_directory(self.candidate_dir)
+        self.assertTrue(
+            any("must contain at least one item" in error for error in result.errors)
+        )
+
+    def test_record_technologies_missing_from_skills_are_warned(self) -> None:
+        result = validate_candidate_directory(self.candidate_dir)
+        self.assertTrue(result.is_valid, result.errors)
+        self.assertEqual(len(result.warnings), 2, result.warnings)
+        self.assertIn("'Docker'", result.warnings[0])
+        self.assertIn("project_example_distributed_systems_lab", result.warnings[0])
+        self.assertIn("'REST APIs'", result.warnings[1])
+
+    def test_technology_warning_clears_when_skill_is_recorded(self) -> None:
+        skills = self._load("skills.yaml")
+        skills["skill_groups"][1]["skills"].append(
+            {"id": "skill_example_docker", "name": "docker", "evidence_ids": []}
+        )
+        self._save("skills.yaml", skills)
+        result = validate_candidate_directory(self.candidate_dir)
+        self.assertTrue(result.is_valid, result.errors)
+        self.assertFalse(any("'Docker'" in warning for warning in result.warnings))
+
     def test_end_date_before_start_date_is_rejected(self) -> None:
         education = self._load("education.yaml")
         education["education"][0]["end_date"] = "2019-01"

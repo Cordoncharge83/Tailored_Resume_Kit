@@ -65,6 +65,7 @@ UniqueKeySafeLoader.add_constructor(
 class ValidationResult:
     directory: Path
     errors: list[str] = field(default_factory=list)
+    warnings: list[str] = field(default_factory=list)
     id_count: int = 0
     evidence_reference_count: int = 0
 
@@ -202,12 +203,16 @@ def _date_order(
 
 
 def _accomplishments(
-    mapping: dict[str, Any], location: str, state: _ValidationState
+    mapping: dict[str, Any],
+    location: str,
+    state: _ValidationState,
+    *,
+    allow_empty: bool = False,
 ) -> None:
     items = _mapping_items(mapping, "accomplishments", location, state)
     if items is None:
         return
-    if not items:
+    if not items and not allow_empty:
         state.error(f"{location}.accomplishments", "must contain at least one item")
     for index, item in enumerate(items):
         item_location = f"{location}.accomplishments[{index}]"
@@ -297,7 +302,7 @@ def _validate_education(data: Any, source: str, state: _ValidationState) -> None
         start = _date_field(item, "start_date", location, state)
         end = _date_field(item, "end_date", location, state, allow_present=True)
         _date_order(start, end, location, state)
-        _accomplishments(item, location, state)
+        _accomplishments(item, location, state, allow_empty=True)
 
 
 def _validate_experiences(data: Any, source: str, state: _ValidationState) -> None:
@@ -462,6 +467,52 @@ def _collect_identifiers(
             )
 
 
+def _technology_skill_warnings(documents: dict[str, Any]) -> list[str]:
+    """Warn about record technologies that skills.yaml does not list."""
+    skills = documents.get("skills.yaml")
+    if not isinstance(skills, dict) or not isinstance(skills.get("skill_groups"), list):
+        return []
+    skill_names = {
+        skill["name"].strip().casefold()
+        for group in skills["skill_groups"]
+        if isinstance(group, dict) and isinstance(group.get("skills"), list)
+        for skill in group["skills"]
+        if isinstance(skill, dict) and isinstance(skill.get("name"), str)
+    }
+
+    missing: dict[str, tuple[str, list[str]]] = {}
+    for filename, root_name in (
+        ("experiences.yaml", "experiences"),
+        ("projects.yaml", "projects"),
+    ):
+        document = documents.get(filename)
+        if not isinstance(document, dict) or not isinstance(document.get(root_name), list):
+            continue
+        for index, record in enumerate(document[root_name]):
+            if not isinstance(record, dict) or not isinstance(
+                record.get("technologies"), list
+            ):
+                continue
+            record_id = record.get("id")
+            if not isinstance(record_id, str):
+                record_id = f"{filename}$.{root_name}[{index}]"
+            for technology in record["technologies"]:
+                if not isinstance(technology, str) or not technology.strip():
+                    continue
+                normalized = technology.strip().casefold()
+                if normalized in skill_names:
+                    continue
+                name, record_ids = missing.setdefault(normalized, (technology.strip(), []))
+                if record_id not in record_ids:
+                    record_ids.append(record_id)
+
+    return [
+        f"technology {name!r} is listed by {', '.join(record_ids)} "
+        "but not in skills.yaml; add it there only if the candidate can claim it"
+        for name, record_ids in sorted(missing.values(), key=lambda item: item[0].casefold())
+    ]
+
+
 def validate_candidate_directory(directory: Path | str) -> ValidationResult:
     candidate_dir = Path(directory)
     state = _ValidationState()
@@ -498,6 +549,7 @@ def validate_candidate_directory(directory: Path | str) -> ValidationResult:
     return ValidationResult(
         directory=candidate_dir,
         errors=sorted(set(state.errors)),
+        warnings=_technology_skill_warnings(documents),
         id_count=len(state.ids),
         evidence_reference_count=len(state.evidence_references),
     )
@@ -527,11 +579,13 @@ def main(argv: list[str] | None = None) -> int:
                 f"PASS {directory}: 5 files, {result.id_count} unique IDs, "
                 f"{result.evidence_reference_count} valid evidence references"
             )
-            continue
-        failed = True
-        print(f"FAIL {directory}:", file=sys.stderr)
-        for error in result.errors:
-            print(f"- {error}", file=sys.stderr)
+        else:
+            failed = True
+            print(f"FAIL {directory}:", file=sys.stderr)
+            for error in result.errors:
+                print(f"- {error}", file=sys.stderr)
+        for warning in result.warnings:
+            print(f"WARN {directory}: {warning}")
     return 1 if failed else 0
 
 

@@ -194,7 +194,9 @@ python -m unittest discover -s tests -v
 The validator rejects unsafe YAML construction, duplicate mapping keys,
 missing required files or fields, invalid dates, duplicate or malformed IDs,
 unresolved evidence references, duplicate skill names, and unsupported
-experience or project types. GitHub Actions runs the same public checks on
+experience or project types. It also warns, without failing, when a record
+lists a technology that `skills.yaml` does not, so you can decide whether to
+claim it as a skill. GitHub Actions runs the same public checks on
 pushes and pull requests. Private ignored candidate data is never uploaded to
 CI.
 

@@ -33,7 +33,9 @@ Duplicate YAML mapping keys and unexpected candidate YAML files are rejected.
 - Profile link: `id`, `label`, and `url`.
 - Language: `id`, `name`, and `proficiency`.
 - Education: `id`, `institution`, `degree`, `field_of_study`, `location`,
-  `start_date`, `end_date`, and `accomplishments`.
+  `start_date`, `end_date`, and `accomplishments`. Education
+  `accomplishments` may be an empty list; experiences and projects need at
+  least one accomplishment.
 - Experience: `id`, `experience_type`, `role`, `start_date`, `end_date`, and
   `accomplishments`.
 - Project: `id`, `name`, `description`, `project_type`, `technologies`, and
@@ -58,6 +60,14 @@ Project types:
 
 - `personal`;
 - `academic`.
+
+## Warnings
+
+Warnings are printed but do not fail validation. The validator warns when a
+technology listed in an experience or project `technologies` list does not
+match any skill name in `skills.yaml`, ignoring case and surrounding
+whitespace. Add the technology to `skills.yaml` only if the candidate can
+genuinely claim it as a skill.
 
 ## Dates
 
